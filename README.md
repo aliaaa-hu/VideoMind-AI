@@ -55,28 +55,24 @@ Evidence frame_000125.jpg
 
 ## Technology Stack
 
-| Layer | Technology | Purpose |
-| :--- | :--- | :--- |
-| Web | Vue 3, Vite, SSE, Marked | Uploads, Agent workspace, live progress, and safe Markdown rendering |
-| API | Java 21, Spring Boot 3.5.9, Undertow, MyBatis-Plus | Authentication, media management, orchestration, and REST APIs |
-| Async and cache | RocketMQ 5.3.4, Redis 7.4, Redisson | Background processing, cached state, rate limits, locks, and idempotency |
-| Data and storage | MySQL 8, MinIO, Qdrant | Business data, video objects, checkpoints, and vector retrieval |
-| Video and AI | FFmpeg, Tesseract, LangChain4j, DeepSeek, TeleSpeechASR, BGE-M3 | Media processing, multimodal extraction, reasoning, and embeddings |
-| Deployment | Docker Compose | Local infrastructure orchestration |
+- **Frontend:** Vue 3, Vite, SSE, and Marked for the upload flow, Agent workspace, live progress, and safe Markdown rendering.
+- **Backend:** Java 21, Spring Boot 3.5.9, Undertow, and MyBatis-Plus for authentication, media management, orchestration, and REST APIs.
+- **Async processing and cache:** RocketMQ 5.3.4, Redis 7.4, and Redisson for background tasks, caching, rate limiting, locks, and idempotency.
+- **Data and storage:** MySQL 8, MinIO, and Qdrant for application data, video objects, checkpoints, and vector retrieval.
+- **Video and AI:** FFmpeg, Tesseract, LangChain4j, DeepSeek, TeleSpeechASR, and BGE-M3 for media processing, extraction, reasoning, and embeddings.
+- **Deployment:** Docker Compose for local infrastructure orchestration.
 
 ## Run Locally
 
 ### Prerequisites
 
-| Component | Requirement | Notes |
-| :--- | :--- | :--- |
-| JDK | 21 | Backend runtime |
-| Node.js | 22 | Vue and Vite runtime |
-| Docker | Compose v2 | Starts MySQL, Redis, MinIO, Qdrant, and RocketMQ |
-| FFmpeg | Available on `PATH` | Audio segmentation and key-frame extraction |
-| Tesseract | `eng` recommended; `chi_sim` optional | Key-frame OCR |
-| yt-dlp | Optional | Needed only for online video URLs |
-
+- **JDK 21** — Required for the backend runtime.
+- **Node.js 22** — Required for the Vue and Vite frontend.
+- **Docker Compose v2** — Starts MySQL, Redis, MinIO, Qdrant, and RocketMQ.
+- **FFmpeg** — Must be available on your `PATH` for audio segmentation and key-frame extraction.
+- **Tesseract** — Required for key-frame OCR; `eng` is recommended and `chi_sim` is optional.
+- **yt-dlp** — Optional; required only when importing online video URLs.
+  
 ### 1. Create local configuration
 
 ```bash
