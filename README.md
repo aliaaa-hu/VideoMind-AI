@@ -53,39 +53,6 @@ Evidence frame_000125.jpg
 - **Checkpoint recovery** — MySQL stores durable recovery state while Redis serves as hot cache for `VideoContext`, chunks, plans, Critic state, and results.
 - **Observable state** — The frontend receives task stages through SSE. Failed messages are persisted and can be republished through an administrative endpoint.
 
-## Request Flow
-
-```mermaid
-sequenceDiagram
-    autonumber
-    actor User
-    participant Web as Vue workspace
-    participant API as Spring Boot API
-    participant MQ as RocketMQ
-    participant Worker as Analysis consumer
-    participant Context as VideoContext
-    participant Search as Qdrant retrieval
-    participant Agent as AgentLoop
-    participant State as MySQL + Redis
-
-    User->>Web: Upload video and provide analysis goal
-    Web->>API: Upload and merge chunks
-    API->>MQ: Publish video-analysis task
-    API-->>Web: Return 202 Accepted
-    MQ->>Worker: Consume asynchronously
-    Worker->>State: Look up idempotent result and checkpoint
-    Worker->>Context: FFmpeg + ASR and key frames + OCR
-    Context->>State: Save multimodal context
-    Worker->>Search: Hybrid retrieval
-    Search-->>Agent: Return source evidence
-    loop Critic requires more evidence
-        Agent->>Agent: Planner -> Executor -> Critic
-        Agent->>Search: Retrieve targeted evidence
-    end
-    Agent->>State: Save result and checkpoint
-    Worker-->>Web: Push stages and result through SSE
-```
-
 ## Technology Stack
 
 | Layer | Technology | Purpose |
