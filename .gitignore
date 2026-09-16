@@ -1,0 +1,24 @@
+.idea/
+.DS_Store
+*.iml
+.env
+.env.*
+!.env.example
+server/target/
+client/node_modules/
+client/dist/
+mysql/data/
+mysql/logs/
+redis/data/
+qdrant/data/
+minio/data/
+
+# Local planning notes and generated handoff archives.
+task_plan.md
+findings.md
+progress.md
+VideoMind-AI-github-*/
+VideoMind-AI-github-*.zip
+
+# Personal interview preparation is not part of the public project.
+docs/interview-*.md

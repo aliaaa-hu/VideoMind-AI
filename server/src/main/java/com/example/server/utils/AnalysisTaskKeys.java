@@ -1,0 +1,82 @@
+package com.example.server.utils;
+
+import com.example.server.dto.AnalysisMode;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HexFormat;
+import java.util.Locale;
+import java.util.regex.Pattern;
+
+public final class AnalysisTaskKeys {
+
+    private static final Pattern MD5_PATTERN = Pattern.compile("[a-fA-F0-9]{32}");
+
+    private AnalysisTaskKeys() {
+    }
+
+    public static String normalizeContentHash(Long mediaId, String contentHash) {
+        if (contentHash != null && MD5_PATTERN.matcher(contentHash).matches()) {
+            return contentHash.toLowerCase(Locale.ROOT);
+        }
+        return "media-" + mediaId;
+    }
+
+    public static String goalDigest(String goal) {
+        if (goal == null || goal.isBlank()) {
+            throw new IllegalArgumentException("analysis goal is required");
+        }
+        return sha256(goal.trim());
+    }
+
+    /**
+     *
+     */
+    public static String goalDigest(String goal, AnalysisMode mode) {
+        if (mode == null || mode == AnalysisMode.GENERAL) {
+            return goalDigest(goal);
+        }
+        if (goal == null || goal.isBlank()) {
+            throw new IllegalArgumentException("analysis goal is required");
+        }
+        return sha256(mode.name() + '␟' + goal.trim());
+    }
+
+    private static String sha256(String value) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            return HexFormat.of().formatHex(digest.digest(value.getBytes(StandardCharsets.UTF_8)));
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException("SHA-256 is not available", e);
+        }
+    }
+
+    public static String active(String contentHash, String goalDigest) {
+        return "analysis:active:" + contentHash + ":" + goalDigest;
+    }
+
+    public static String lock(String contentHash, String goalDigest) {
+        return "lock:analysis:" + contentHash + ":" + goalDigest;
+    }
+
+    public static String completed(String contentScope, String goalDigest) {
+        return "analysis:completed:" + contentScope + ":" + goalDigest;
+    }
+
+    public static String attempts(String contentScope, String goalDigest) {
+        return "analysis:attempts:" + contentScope + ":" + goalDigest;
+    }
+
+    /**
+     */
+    public static String contextOwner(String contentHash) {
+        return "analysis:context-owner:" + contentHash;
+    }
+
+    /**
+     */
+    public static String contextLock(String contentHash) {
+        return "lock:analysis-context:" + contentHash;
+    }
+}

@@ -1,0 +1,70 @@
+[
+  {
+    "name": "Course video: complementary ASR and OCR",
+    "context": {
+      "source": "offline://binary-tree-course",
+      "userGoal": "Create study notes for binary-tree preorder traversal, including steps and evidence",
+      "segments": [
+        {
+          "startMs": 120000,
+          "endMs": 180000,
+          "transcript": "Preorder traversal visits the root node first, then recursively visits the left subtree, and finally the right subtree.",
+          "ocrTexts": ["Preorder traversal: root, left subtree, right subtree"],
+          "evidenceFrames": ["frame_000125.jpg"]
+        }
+      ]
+    },
+    "expectedKeywords": ["preorder traversal", "root", "left subtree", "right subtree"]
+  },
+  {
+    "name": "Meeting video: speech-only action item",
+    "context": {
+      "source": "offline://project-meeting",
+      "userGoal": "Summarize the meeting decision, owner, and deadline",
+      "segments": [
+        {
+          "startMs": 0,
+          "endMs": 60000,
+          "transcript": "The meeting decided to complete the staged rollout by July 25. Zhang Ming is the owner.",
+          "ocrTexts": [],
+          "evidenceFrames": []
+        }
+      ]
+    },
+    "expectedKeywords": ["July 25", "staged rollout", "Zhang Ming"]
+  },
+  {
+    "name": "Screen recording: visual-only workflow",
+    "context": {
+      "source": "offline://frontend-build",
+      "userGoal": "Extract the build command and output directory shown on screen",
+      "segments": [
+        {
+          "startMs": 30000,
+          "endMs": 60000,
+          "transcript": "",
+          "ocrTexts": ["npm run build", "Build completed: dist/"],
+          "evidenceFrames": ["frame_000035.jpg"]
+        }
+      ]
+    },
+    "expectedKeywords": ["npm run build", "dist"]
+  },
+  {
+    "name": "Audio-visual conflict: preserve uncertainty",
+    "context": {
+      "source": "offline://conflicting-deadline",
+      "userGoal": "Verify the final launch date in the video and explicitly report any conflict",
+      "segments": [
+        {
+          "startMs": 60000,
+          "endMs": 120000,
+          "transcript": "We plan to launch officially on August 1.",
+          "ocrTexts": ["Official launch: August 3"],
+          "evidenceFrames": ["frame_000075.jpg"]
+        }
+      ]
+    },
+    "expectedKeywords": ["August 1", "August 3", "conflict"]
+  }
+]
