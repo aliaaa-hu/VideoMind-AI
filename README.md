@@ -20,13 +20,13 @@
 
 ## Core Capabilities
 
-### 🎬 Reliable video-task pipeline
+### Reliable video-task pipeline
 
 - **Chunked upload and resume support** — The client uploads 5 MB chunks, Redis tracks completed chunks, and MinIO stores merged video objects so interrupted uploads can continue from the last completed chunk.
 - **Asynchronous processing** — RocketMQ moves analysis off request threads and returns a task ID immediately. Redisson locks by content fingerprint and analysis goal to prevent duplicate work.
 - **Cost guardrails** — Per-user and global token buckets rate-limit AI calls. ASR and model calls use bounded exponential-backoff retries for transient failures.
 
-### 🧩 Temporal multimodal VideoContext
+### Temporal multimodal VideoContext
 
 - **Dual extraction paths** — FFmpeg slices audio into 60-second chunks while scene-change detection extracts key frames, with a 30-second fallback sample for static slides and whiteboards.
 - **Parallel and fault-tolerant processing** — ASR and OCR run in independent bounded thread pools. Perceptual hashing removes near-duplicate frames, and one path can still contribute when the other fails.
@@ -39,14 +39,14 @@ OCR      Preorder: root node, left subtree, right subtree.
 Evidence frame_000125.jpg
 ```
 
-### 🔁 Evidence-constrained AgentLoop
+### Evidence-constrained AgentLoop
 
 - **Planner, Executor, and Critic roles** — The Planner breaks a goal into executable tasks, the Executor creates structured conclusions and evidence, and the Critic validates coverage and timestamp support.
 - **Closed-loop verification** — When the Critic finds missing content, the Agent requests targeted additional evidence before producing the final result.
 - **Automatic mode routing** — Goals route to general, learning, review, or creation modes, with a safe fallback to general mode.
 - **Bounded cost** — AgentLoop executes at most two rounds to permit focused revision while limiting latency and token cost.
 
-### 🔍 Long-video retrieval and recovery
+### Long-video retrieval and recovery
 
 - **Hybrid retrieval** — Every five minutes, the system creates segment summaries, keywords, and embeddings. Keyword matching and Qdrant semantic recall select top-k source evidence.
 - **Graceful degradation** — When Qdrant or embeddings are unavailable, the service falls back to local keyword matching and existing-vector ranking.
