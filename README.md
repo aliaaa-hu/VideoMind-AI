@@ -32,12 +32,6 @@
 - **Parallel and fault-tolerant processing** — ASR and OCR run in independent bounded thread pools. Perceptual hashing removes near-duplicate frames, and one path can still contribute when the other fails.
 - **Unified structure** — Speech spans, OCR text, key frames, and timestamps become `VideoSegment` records, so retrieval and verification are model-independent.
 
-```text
-[02:00 - 03:00]
-ASR      Next, we will cover preorder traversal of a binary tree.
-OCR      Preorder: root node, left subtree, right subtree.
-Evidence frame_000125.jpg
-```
 
 ### Evidence-constrained AgentLoop
 
